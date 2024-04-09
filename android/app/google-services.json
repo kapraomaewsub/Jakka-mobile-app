@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "118093147769",
+    "project_id": "jakkaapp",
+    "storage_bucket": "jakkaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118093147769:android:b19075afcda0be5afdeea8",
+        "android_client_info": {
+          "package_name": "com.example.jakka_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwJizBmGaqyb23HqajrSCCG94RmQLrulI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
