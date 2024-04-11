@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:jakka_app/main.dart';
 
@@ -9,6 +11,8 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,9 +51,11 @@ class _LoginpageState extends State<Loginpage> {
               ),
               SizedBox(height: 20),
               TextField(
+                controller: _emailTextController,
+
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  // hintText: 'uxxxxxxx',
+                  hintText: 'name.sur@student.mahidol.ac.th',
                   fillColor: Color.fromRGBO(245, 245, 245, 1),
                   filled: true,
                   contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -61,6 +67,7 @@ class _LoginpageState extends State<Loginpage> {
               ),
               SizedBox(height: 15),
               TextField(
+                controller: _passwordTextController,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   fillColor: Color.fromRGBO(245, 245, 245, 1),
@@ -77,14 +84,36 @@ class _LoginpageState extends State<Loginpage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // chage this when implement authen
-                    Navigator.pushReplacement(
-                      context,MaterialPageRoute(
-                        builder: (context) => BottomNavigationBarExample()
-                      )
-                    );
+                  onPressed: () async {
+                    try {
+                      final UserCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: _emailTextController.text,
+                        password: _passwordTextController.text,
+                      );
+
+                      Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => BottomNavigationBarExample()));
+                    } catch (e) {
+                        if (e is FirebaseAuthException) {
+                          print('FirebaseAuthException: ${e.message}');
+                        }else {
+                          print('Error: $e');
+      
+                        }
+                    }
+                    // FirebaseAuth.instance
+                    //   .signInWithEmailAndPassword(
+                    //     email: _emailTextController.text,
+                    //     password: _passwordTextController.text)
+                    //   .then((value){
+                    //     Navigator.pushReplacement(context,
+                    //       MaterialPageRoute(builder: (context) => BottomNavigationBarExample()));
+                    //   })
+                    //   .onError((error, stackTrace){
+                    //     print('Error ${error.toString()}');
+                    //   });
                   },
+                  
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
                         Color.fromRGBO(189, 205, 234, 1)),

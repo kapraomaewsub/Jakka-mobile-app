@@ -6,7 +6,16 @@ import 'package:jakka_app/pages/myqr_page.dart';
 import 'package:jakka_app/pages/report_page.dart';
 import 'package:jakka_app/pages/account_page.dart';
 
-void main() => runApp(const BottomNavigationBarExampleApp());
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const BottomNavigationBarExampleApp());
+}
 
 class BottomNavigationBarExampleApp extends StatelessWidget {
   const BottomNavigationBarExampleApp({super.key});
@@ -15,7 +24,7 @@ class BottomNavigationBarExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavigationBarExample(),
+      home: Loginpage(),
     );
   }
 }
@@ -31,7 +40,7 @@ class BottomNavigationBarExample extends StatefulWidget {
 class _BottomNavigationBarExampleState
     extends State<BottomNavigationBarExample> {
   int _selectedIndex = 0;
-  bool isLoggedIn = true; //chage to flase!! when implement authen
+  // bool isLoggedIn = true; //chage to flase!! when implement authen
 
   static const List<Widget> _widgetOptions = <Widget>[
     Homepage(),
@@ -49,8 +58,7 @@ class _BottomNavigationBarExampleState
 
   @override
   Widget build(BuildContext context) {
-    return isLoggedIn
-    ? Scaffold(
+    return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -104,7 +112,7 @@ class _BottomNavigationBarExampleState
         ),
         ),
       ),
-    )
-    : Loginpage();
+    );
+    // : Loginpage();
   }
 }

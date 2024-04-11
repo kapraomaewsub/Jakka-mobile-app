@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:jakka_app/pages/login_page.dart';
 import 'package:jakka_app/pages/setting_page.dart';
@@ -117,12 +119,13 @@ class _AccountpageState extends State<Accountpage> {
                     icon: Icon(Icons.arrow_forward_ios),
                     iconSize: 16,
                     onPressed: () {
-                      Navigator.push(
+                      FirebaseAuth.instance.signOut().then((value){
+                        print("Signed  Out");
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Aboutpage()
-                          )
-                      );
+                          MaterialPageRoute(builder: (context) => const Aboutpage()));
+                      });
+                      
                     },
                   )
                 ],
