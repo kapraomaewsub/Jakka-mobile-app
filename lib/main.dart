@@ -90,7 +90,7 @@ class _BottomNavigationBarExampleState
                 label: 'History',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.report_gmailerrorred_outlined),
+                icon: Icon(Icons.sync_problem_outlined),
                 label: 'Report',
               ),
               BottomNavigationBarItem(

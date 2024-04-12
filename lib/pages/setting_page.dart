@@ -9,11 +9,102 @@ class Settingpage extends StatefulWidget {
 }
 
 class _SettingpageState extends State<Settingpage> {
+  bool notificationValue = false;
+  bool isThaiSelected = false;
+  bool isEnglishSelected = true;
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: settingAppBar(), 
+      appBar: settingAppBar(),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Notification', style: TextStyle(fontSize: 16)),
+                Transform.scale(
+                  scale: 0.8,
+                  child: Switch(
+                    value: notificationValue,
+                    onChanged: (newValue) {
+                      setState(() {
+                        notificationValue = newValue;
+                      });
+                    },
+                    activeColor: Colors.grey,
+                    inactiveThumbColor: Colors.grey,
+                    inactiveTrackColor: Colors.grey.withOpacity(0.5),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                )
+              ],
+            ),
+            Text('Language', style: TextStyle(fontSize: 16)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Thai', style: TextStyle(fontSize: 16)),
+                Checkbox(
+                  value: isThaiSelected,
+                  onChanged: (newValue) {
+                    setState(() {
+                      isThaiSelected = newValue ?? false;
+                      if (isThaiSelected) {
+                        isEnglishSelected = false;
+                      }
+                    });
+                  },
+                  checkColor: Colors.black,
+                  fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                    if (states.contains(MaterialState.selected)) {
+                      return Colors.transparent;
+                    }
+                    return Colors
+                        .transparent;
+                  }),
+                  side: BorderSide.none,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('English', style: TextStyle(fontSize: 16)),
+                Checkbox(
+                  value: isEnglishSelected,
+                  onChanged: (newValue) {
+                    setState(() {
+                      isEnglishSelected = newValue ?? false;
+                      if (isEnglishSelected) {
+                        isThaiSelected = false;
+                      }
+                    });
+                  },
+                  checkColor: Colors.black,
+                  fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                    if (states.contains(MaterialState.selected)) {
+                      return Colors.transparent;
+                    }
+                    return Colors
+                        .transparent;
+                  }),
+                  side: BorderSide.none,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                )
+              ],
+            ),
+            
+          ],
+        ),
+      ),
     );
   }
 

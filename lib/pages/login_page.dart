@@ -101,17 +101,6 @@ class _LoginpageState extends State<Loginpage> {
       
                         }
                     }
-                    // FirebaseAuth.instance
-                    //   .signInWithEmailAndPassword(
-                    //     email: _emailTextController.text,
-                    //     password: _passwordTextController.text)
-                    //   .then((value){
-                    //     Navigator.pushReplacement(context,
-                    //       MaterialPageRoute(builder: (context) => BottomNavigationBarExample()));
-                    //   })
-                    //   .onError((error, stackTrace){
-                    //     print('Error ${error.toString()}');
-                    //   });
                   },
                   
                   style: ButtonStyle(

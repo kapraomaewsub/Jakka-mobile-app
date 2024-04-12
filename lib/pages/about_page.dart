@@ -13,7 +13,57 @@ class _AboutpageState extends State<Aboutpage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: aboutAppBar(), 
+      appBar: aboutAppBar(),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Current Version', style: TextStyle(fontSize: 16)),
+                Text('6.0.5', style: TextStyle(fontSize: 16)),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Terms and Conditions', style: TextStyle(fontSize: 16)),
+                IconButton(
+                  icon: Icon(Icons.arrow_forward_ios),
+                  iconSize: 16,
+                  onPressed: () {},
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Privacy Notice', style: TextStyle(fontSize: 16)),
+                IconButton(
+                  icon: Icon(Icons.arrow_forward_ios),
+                  iconSize: 16,
+                  onPressed: () {},
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Consent', style: TextStyle(fontSize: 16)),
+                IconButton(
+                  icon: Icon(Icons.arrow_forward_ios),
+                  iconSize: 16,
+                  onPressed: () {},
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -36,4 +86,6 @@ class _AboutpageState extends State<Aboutpage> {
       ),
     );
   }
+
+
 }
