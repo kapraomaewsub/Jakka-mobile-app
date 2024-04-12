@@ -40,7 +40,6 @@ class BottomNavigationBarExample extends StatefulWidget {
 class _BottomNavigationBarExampleState
     extends State<BottomNavigationBarExample> {
   int _selectedIndex = 0;
-  // bool isLoggedIn = true; //chage to flase!! when implement authen
 
   static const List<Widget> _widgetOptions = <Widget>[
     Homepage(),

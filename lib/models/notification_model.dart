@@ -18,14 +18,14 @@ class NotificationModel{
     );
 
     notification.add(NotificationModel(
-        topic: 'Accepted',
+        topic: 'อย่าลืมคืนจักรยาน!!',
         jakkaNo: 'Jakka No. 102',
         date: '13/03/2024 20:02',
       )
     );
 
     notification.add(NotificationModel(
-        topic: 'Accepted',
+        topic: 'Jakka Center close',
         date: '13/03/2024 20:02',
       )
     );

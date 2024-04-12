@@ -119,12 +119,11 @@ class _AccountpageState extends State<Accountpage> {
                     icon: Icon(Icons.arrow_forward_ios),
                     iconSize: 16,
                     onPressed: () {
-                      FirebaseAuth.instance.signOut().then((value){
-                        print("Signed  Out");
+                      
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const Aboutpage()));
-                      });
+                      
                       
                     },
                   )
@@ -148,12 +147,12 @@ class _AccountpageState extends State<Accountpage> {
             height: 40,
             child: ElevatedButton(
               onPressed: () {
-                // Implement logout functionality here
-                  Navigator.pushReplacement(
-                      context,MaterialPageRoute(
-                        builder: (context) => Loginpage()
-                      )
-                    );
+                  FirebaseAuth.instance.signOut().then((value){
+                        print("Signed  Out");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Loginpage()));
+                      });
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromRGBO(231, 92, 92, 1),
