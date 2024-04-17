@@ -24,10 +24,8 @@ class _HistorypageState extends State<Historypage> {
         children: [
           SizedBox(height: 20),
           _historySection(),
-          
         ],
       ),
-      
     );
   }
 
@@ -43,19 +41,18 @@ class _HistorypageState extends State<Historypage> {
       centerTitle: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25), 
+          bottomLeft: Radius.circular(25),
           bottomRight: Radius.circular(25),
         ),
       ),
     );
   }
 
-   Column _historySection() {
+  Column _historySection() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        
-        children: [
-          Container(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
           height: 500,
           width: 500,
           child: ListView.separated(
@@ -75,56 +72,57 @@ class _HistorypageState extends State<Historypage> {
                     width: 2, // Set the border width
                   ),
                 ),
-                  
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 46,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(189, 205, 234, 1),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(7),
-                              bottomLeft: Radius.circular(7),
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 46,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(189, 205, 234, 1),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(7),
+                                    bottomLeft: Radius.circular(7),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(history[index].date),
+                                  Text(history[index].jakkaNo),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(width:10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          
-                          children: [
-                            Text(history[index].date),
-                            Text(history[index].jakkaNo),
-                          ],
-                        ),
-                        
-                        SizedBox(width: 20),
-                        Text(
-                          history[index].status,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                history[index].status,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
-                        ),
-
-                        
-                      ],
+                        ],
+                      ),
                     ),
-                  ],  
+                  ],
                 ),
               );
             },
           ),
         ),
-        ],
-      );
-   }
-
-
-
+      ],
+    );
+  }
 }
