@@ -136,7 +136,7 @@ class _NewreportpageState extends State<Newreportpage> {
                 ),
                 child: TextField(
                   decoration: InputDecoration(
-                      hintText: 'Uploard your photo here.',
+                      hintText: 'Upload your photo here.',
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 100, horizontal: 20),
                       border: OutlineInputBorder(
