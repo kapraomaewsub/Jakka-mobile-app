@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class Aboutpage extends StatefulWidget {
   const Aboutpage({super.key});
 
@@ -11,17 +10,15 @@ class Aboutpage extends StatefulWidget {
 class _AboutpageState extends State<Aboutpage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: aboutAppBar(),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 15),
-            Row(
+            const SizedBox(height: 15),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Current Version', style: TextStyle(fontSize: 16)),
@@ -31,9 +28,10 @@ class _AboutpageState extends State<Aboutpage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Terms and Conditions', style: TextStyle(fontSize: 16)),
+                const Text('Terms and Conditions',
+                    style: TextStyle(fontSize: 16)),
                 IconButton(
-                  icon: Icon(Icons.arrow_forward_ios),
+                  icon: const Icon(Icons.arrow_forward_ios),
                   iconSize: 16,
                   onPressed: () {},
                 )
@@ -42,9 +40,9 @@ class _AboutpageState extends State<Aboutpage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Privacy Notice', style: TextStyle(fontSize: 16)),
+                const Text('Privacy Notice', style: TextStyle(fontSize: 16)),
                 IconButton(
-                  icon: Icon(Icons.arrow_forward_ios),
+                  icon: const Icon(Icons.arrow_forward_ios),
                   iconSize: 16,
                   onPressed: () {},
                 )
@@ -53,9 +51,9 @@ class _AboutpageState extends State<Aboutpage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Consent', style: TextStyle(fontSize: 16)),
+                const Text('Consent', style: TextStyle(fontSize: 16)),
                 IconButton(
-                  icon: Icon(Icons.arrow_forward_ios),
+                  icon: const Icon(Icons.arrow_forward_ios),
                   iconSize: 16,
                   onPressed: () {},
                 )
@@ -72,20 +70,17 @@ class _AboutpageState extends State<Aboutpage> {
       title: const Text(
         'About',
         style: TextStyle(
-          color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold
-        ),
+            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
       ),
       toolbarHeight: 60,
-      backgroundColor: Color.fromRGBO(34, 72, 158, 1),
+      backgroundColor: const Color.fromRGBO(34, 72, 158, 1),
       centerTitle: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25), 
+          bottomLeft: Radius.circular(25),
           bottomRight: Radius.circular(25),
         ),
       ),
     );
   }
-
-
 }

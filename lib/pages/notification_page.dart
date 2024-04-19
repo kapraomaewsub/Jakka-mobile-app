@@ -22,11 +22,10 @@ class _NotificationpageState extends State<Notificationpage> {
       appBar: notificationAppBar(),
       body: ListView(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _notificationSection(),
         ],
       ),
-      
     );
   }
 
@@ -35,15 +34,14 @@ class _NotificationpageState extends State<Notificationpage> {
       title: const Text(
         'Notifications',
         style: TextStyle(
-          color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold
-        ),
+            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
       ),
       toolbarHeight: 60,
       backgroundColor: Color.fromRGBO(34, 72, 158, 1),
       centerTitle: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25), 
+          bottomLeft: Radius.circular(25),
           bottomRight: Radius.circular(25),
         ),
       ),
@@ -52,10 +50,9 @@ class _NotificationpageState extends State<Notificationpage> {
 
   Column _notificationSection() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        
-        children: [
-          Container(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
           height: 500,
           width: 500,
           child: ListView.separated(
@@ -75,51 +72,51 @@ class _NotificationpageState extends State<Notificationpage> {
                     width: 2, // Set the border width
                   ),
                 ),
-                  
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 46,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(189, 205, 234, 1),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(7),
-                              bottomLeft: Radius.circular(7),
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                height: 46,
+                                width: 20,
+                                decoration: const BoxDecoration(
+                                  color: Color.fromRGBO(189, 205, 234, 1),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(7),
+                                    bottomLeft: Radius.circular(7),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(notification[index].topic),
+                                  // Text(notification[index].jakkaNo),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(width:10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          
-                          children: [
-                            Text(notification[index].topic),
-                            // Text(notification[index].jakkaNo),
-                          ],
-                        ),
-                        
-                        SizedBox(width: 20),
-                        Text(
-                          notification[index].date,
-                          
-                        ),
-
-                        
-                      ],
+                          Text(
+                            notification[index].date,
+                          ),
+                        ],
+                      ),
                     ),
-                  ],  
+                  ],
                 ),
               );
             },
           ),
         ),
-        ],
-      );
+      ],
+    );
   }
 }

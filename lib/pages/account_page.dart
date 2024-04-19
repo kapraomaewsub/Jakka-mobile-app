@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:jakka_app/components/my_user_account.dart';
 import 'package:jakka_app/pages/login_page.dart';
 import 'package:jakka_app/pages/setting_page.dart';
 import 'package:jakka_app/pages/about_page.dart';
-
 
 class Accountpage extends StatefulWidget {
   const Accountpage({super.key});
@@ -16,16 +15,15 @@ class Accountpage extends StatefulWidget {
 class _AccountpageState extends State<Accountpage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: accountpageAppBar(),
       body: Stack(
         children: [
           Column(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _userInfoSection(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
           Positioned(
@@ -44,17 +42,14 @@ class _AccountpageState extends State<Accountpage> {
       title: const Text(
         'User Account',
         style: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-          fontWeight: FontWeight.bold
-        ),
+            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
       ),
       toolbarHeight: 60,
-      backgroundColor: Color.fromRGBO(34, 72, 158, 1),
+      backgroundColor: const Color.fromRGBO(34, 72, 158, 1),
       centerTitle: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25), 
+          bottomLeft: Radius.circular(25),
           bottomRight: Radius.circular(25),
         ),
       ),
@@ -63,50 +58,30 @@ class _AccountpageState extends State<Accountpage> {
 
   Widget _userInfoSection() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage('assets/profile.jpg'),
-              ),
-              SizedBox(width: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('6587098', style: TextStyle(fontSize: 16)),
-                  Text('Patraporn Sukumphanthanasarn',
-                      style: TextStyle(fontSize: 14)),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 10), 
-          Divider(
-            color: Colors.black, 
+          MyUserAccount(),
+          const SizedBox(height: 10),
+          const Divider(
+            color: Colors.black,
             thickness: 1,
           ),
-
           Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Setting', style: TextStyle(fontSize: 14)),
+                  const Text('Setting', style: TextStyle(fontSize: 14)),
                   IconButton(
-                    icon: Icon(Icons.arrow_forward_ios),
+                    icon: const Icon(Icons.arrow_forward_ios),
                     iconSize: 16,
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Settingpage()
-                          )
-                      );
+                              builder: (context) => const Settingpage()));
                     },
                   )
                 ],
@@ -114,17 +89,15 @@ class _AccountpageState extends State<Accountpage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('About', style: TextStyle(fontSize: 14)),
+                  const Text('About', style: TextStyle(fontSize: 14)),
                   IconButton(
-                    icon: Icon(Icons.arrow_forward_ios),
+                    icon: const Icon(Icons.arrow_forward_ios),
                     iconSize: 16,
                     onPressed: () {
-                      
-                        Navigator.push(
+                      Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Aboutpage()));
-                      
-                      
+                          MaterialPageRoute(
+                              builder: (context) => const Aboutpage()));
                     },
                   )
                 ],
@@ -138,41 +111,36 @@ class _AccountpageState extends State<Accountpage> {
 
   Center _logoutSection() {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          
-          SizedBox(
-            width: 300,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () {
-                  FirebaseAuth.instance.signOut().then((value){
-                        print("Signed  Out");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Loginpage()));
-                      });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(231, 92, 92, 1),
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Color.fromRGBO(231, 92, 92, 1)),
-                ),
-              ),
-              child: Text(
-                'Logout',
-                style: TextStyle(color: Colors.white,fontSize: 14),
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SizedBox(
+          width: 300,
+          height: 40,
+          child: ElevatedButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut().then((value) {
+                print("Signed  Out");
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Loginpage()));
+              });
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromRGBO(231, 92, 92, 1),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: const BorderSide(color: Color.fromRGBO(231, 92, 92, 1)),
               ),
             ),
+            child: const Text(
+              'Logout',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
           ),
-          SizedBox(height: 5),
-        ],
-      )
-    );
+        ),
+        const SizedBox(height: 5),
+      ],
+    ));
   }
-
-
 }

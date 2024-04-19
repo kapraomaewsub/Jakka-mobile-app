@@ -104,14 +104,9 @@ class _HistorypageState extends State<Historypage> {
                               ),
                             ],
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                history[index].status,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                          Text(
+                            history[index].status,
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

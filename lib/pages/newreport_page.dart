@@ -1,6 +1,6 @@
- import 'package:flutter/material.dart';
- import 'package:intl/intl.dart';
- import 'package:jakka_app/pages/report_page.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:jakka_app/pages/report_page.dart';
 
 class Newreportpage extends StatefulWidget {
   const Newreportpage({super.key});
@@ -12,17 +12,11 @@ class Newreportpage extends StatefulWidget {
 class _NewreportpageState extends State<Newreportpage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: newreportAppBar(),
       body: ListView(
-        children: [
-          SizedBox(height: 15),
-          _newreportSection()
-
-        ],
+        children: [SizedBox(height: 15), _newreportSection()],
       ),
-      
     );
   }
 
@@ -31,15 +25,14 @@ class _NewreportpageState extends State<Newreportpage> {
       title: const Text(
         'New Report',
         style: TextStyle(
-          color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold
-        ),
+            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
       ),
       toolbarHeight: 60,
       backgroundColor: Color.fromRGBO(34, 72, 158, 1),
       centerTitle: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25), 
+          bottomLeft: Radius.circular(25),
           bottomRight: Radius.circular(25),
         ),
       ),
@@ -149,10 +142,8 @@ class _NewreportpageState extends State<Newreportpage> {
                 ),
               )),
         ),
-        
-
         Center(
-          child: Column(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(height: 40),
@@ -180,7 +171,6 @@ class _NewreportpageState extends State<Newreportpage> {
             SizedBox(height: 5),
           ],
         )),
-
       ],
     );
   }

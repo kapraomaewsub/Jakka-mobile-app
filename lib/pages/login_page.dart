@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:jakka_app/main.dart';
 
@@ -11,8 +10,8 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,22 +19,20 @@ class _LoginpageState extends State<Loginpage> {
         child: Container(
           width: 350,
           height: 400,
-          margin: EdgeInsets.all(25),
-          padding: EdgeInsets.all(20),
+          margin: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Color.fromRGBO(239, 238, 241, 1),
-            border: Border.all(
-                color: Color.fromRGBO(239, 238, 241, 1)),
+            color: const Color.fromRGBO(239, 238, 241, 1),
+            border: Border.all(color: const Color.fromRGBO(239, 238, 241, 1)),
             borderRadius: BorderRadius.circular(25),
           ),
-
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Login',
+              const Text('Login',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-              SizedBox(height: 15),
-              Row(
+              const SizedBox(height: 15),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image(
@@ -49,74 +46,83 @@ class _LoginpageState extends State<Loginpage> {
                       height: 95),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextField(
                 controller: _emailTextController,
-
                 decoration: InputDecoration(
                   labelText: 'Username',
                   hintText: 'name.sur@student.mahidol.ac.th',
-                  fillColor: Color.fromRGBO(245, 245, 245, 1),
+                  fillColor: const Color.fromRGBO(245, 245, 245, 1),
                   filled: true,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color.fromRGBO(166, 166, 166, 1)),
+                    borderSide: const BorderSide(
+                        color: Color.fromRGBO(166, 166, 166, 1)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               TextField(
                 controller: _passwordTextController,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  fillColor: Color.fromRGBO(245, 245, 245, 1),
+                  fillColor: const Color.fromRGBO(245, 245, 245, 1),
                   filled: true,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   border: OutlineInputBorder(
-                    borderSide:BorderSide(color: Color.fromRGBO(166, 166, 166, 1)),
+                    borderSide: const BorderSide(
+                        color: Color.fromRGBO(166, 166, 166, 1)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 obscureText: true,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
-                      final UserCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      final UserCredential = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
                         email: _emailTextController.text,
                         password: _passwordTextController.text,
                       );
 
-                      Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => BottomNavigationBarExample()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const BottomNavigationBarExample()));
                     } catch (e) {
-                        if (e is FirebaseAuthException) {
-                          print('FirebaseAuthException: ${e.message}');
-                        }else {
-                          print('Error: $e');
-      
-                        }
+                      if (e is FirebaseAuthException) {
+                        print('FirebaseAuthException: ${e.message}');
+                      } else {
+                        print('Error: $e');
+                      }
                     }
                   },
-                  
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromRGBO(189, 205, 234, 1)),
+                        const Color.fromRGBO(189, 205, 234, 1)),
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 20), // Padding
+                      const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20), // Padding
                     ),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), // Border radius
-                        side: BorderSide(color: Color.fromRGBO(189, 205, 234, 1)), // Border color
+                        borderRadius:
+                            BorderRadius.circular(10), // Border radius
+                        side: const BorderSide(
+                            color: Color.fromRGBO(
+                                189, 205, 234, 1)), // Border color
                       ),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Login',
                     style: TextStyle(fontSize: 14),
                   ),

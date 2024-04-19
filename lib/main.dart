@@ -9,7 +9,7 @@ import 'package:jakka_app/pages/account_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -61,54 +61,54 @@ class _BottomNavigationBarExampleState
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      
       bottomNavigationBar: SizedBox(
         height: 65,
         child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25.0),
-          topRight: Radius.circular(25.0),
-        ),
-
-        child: Container(
-          child: BottomNavigationBar(
-            
-            backgroundColor: Color.fromRGBO(214, 205, 197, 0.5),
-            type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code),
-                label: 'My QR',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.history),
-                label: 'History',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.sync_problem_outlined),
-                label: 'Report',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_2_outlined),
-                label: 'Account',
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(25.0),
+            topRight: Radius.circular(25.0),
+          ),
+          child: Wrap(
+            children: [
+              BottomNavigationBar(
+                backgroundColor: const Color.fromRGBO(214, 205, 197, 0.5),
+                type: BottomNavigationBarType.fixed,
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home_outlined),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.qr_code),
+                    label: 'My QR',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.history),
+                    label: 'History',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.sync_problem_outlined),
+                    label: 'Report',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person_2_outlined),
+                    label: 'Account',
+                  ),
+                ],
+                currentIndex: _selectedIndex,
+                selectedItemColor: Colors.black,
+                onTap: _onItemTapped,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                selectedIconTheme: const IconThemeData(
+                  color: Colors.black,
+                ),
+                unselectedIconTheme: const IconThemeData(
+                  color: Colors.grey,
+                ),
               ),
             ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Colors.black,
-            onTap: _onItemTapped,
-            
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-
-            selectedIconTheme: IconThemeData(color: Colors.black,),
-            unselectedIconTheme: IconThemeData(color: Colors.grey,),
-
           ),
-        ),
         ),
       ),
     );
