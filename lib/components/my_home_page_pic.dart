@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class MyUserAccount extends StatelessWidget {
+class MyHomePic extends StatelessWidget {
   // current logged in user
   User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -14,7 +14,7 @@ class MyUserAccount extends StatelessWidget {
         .get();
   }
 
-  MyUserAccount({super.key});
+  MyHomePic({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,24 +38,12 @@ class MyUserAccount extends StatelessWidget {
             // extract data
             Map<String, dynamic>? user = snapshot.data!.data();
 
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage('${user!['Profilepic']}'),
-                ),
-                const SizedBox(width: 15),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('${user['Student_ID']}',
-                        style: const TextStyle(fontSize: 16)),
-                    Text('${user['Firstname']} ${user['Surname']}',
-                        style: const TextStyle(fontSize: 14)),
-                  ],
-                ),
-              ],
+            return Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: CircleAvatar(
+                radius: 24,
+                backgroundImage: NetworkImage('${user!['Profilepic']}'),
+              ),
             );
           } else {
             return const Text("No data");

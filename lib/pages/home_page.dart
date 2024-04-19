@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jakka_app/components/my_bike_amount.dart';
+import 'package:jakka_app/components/my_home_page_pic.dart';
 import 'package:jakka_app/components/user_tab.dart';
 import 'package:jakka_app/models/news_model.dart';
 import 'package:jakka_app/pages/notification_page.dart';
@@ -41,7 +43,7 @@ class _HomepageState extends State<Homepage> {
       title: UserTab(),
       actions: [
         IconButton(
-          icon: Icon(Icons.notifications_active_outlined),
+          icon: const Icon(Icons.notifications_active_outlined),
           iconSize: 30,
           onPressed: () {
             Navigator.push(
@@ -50,13 +52,7 @@ class _HomepageState extends State<Homepage> {
                     builder: (context) => const Notificationpage()));
           },
         ),
-        Padding(
-          padding: EdgeInsets.only(right: 16),
-          child: CircleAvatar(
-            radius: 24,
-            backgroundImage: AssetImage('assets/profile.jpg'),
-          ),
-        ),
+        MyHomePic(),
       ],
     );
   }
@@ -77,48 +73,7 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
       SizedBox(height: 5),
-      Center(
-        child: Container(
-          height: 120,
-          width: 320,
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(189, 205, 234, 0.5),
-            borderRadius: BorderRadius.circular(20), // Set border radius
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${formattedDateTime}',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                    ),
-                  ),
-                  Text(
-                    '120 คัน',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 50,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(width: 20),
-              Image(
-                image: AssetImage('assets/bicycle_icon.png'),
-                height: 120,
-                width: 120,
-              ),
-            ],
-          ),
-        ),
-      ),
+      Center(child: BikeAmount()),
     ]);
   }
 
