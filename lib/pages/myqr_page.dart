@@ -48,7 +48,7 @@ class _MyQRpageState extends State<MyQRpage> {
         children: [
           Center(
           child: Container(
-            height: 400,
+            height: 360,
             width: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -82,7 +82,7 @@ class _MyQRpageState extends State<MyQRpage> {
                   ),
                 ),
 
-                SizedBox(height: 10),
+                SizedBox(height: 20),
 
                 Column(
                   children: [
@@ -95,7 +95,7 @@ class _MyQRpageState extends State<MyQRpage> {
                       style: TextStyle(fontSize: 12,),
                     ),
 
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
 
                     Image(
                       image: AssetImage('assets/qrcode.jpg'),
@@ -103,35 +103,35 @@ class _MyQRpageState extends State<MyQRpage> {
                       height: 200,
                     ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          image: AssetImage('assets/clock.jpg'),
-                          width: 16,
-                          height: 16,
-                        ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Image(
+                    //       image: AssetImage('assets/clock.jpg'),
+                    //       width: 16,
+                    //       height: 16,
+                    //     ),
 
-                        SizedBox(width: 5),
-                        Text(
-                          '07:32',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+                        // SizedBox(width: 5),
+                        // Text(
+                        //   '07:32',
+                        //   style: TextStyle(
+                        //     fontSize: 14,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                    //   ],
+                    // ),
 
-                    SizedBox(height: 10),
-                    Text(
-                      'Your QR Code will be automatically regenerated',
-                      style: TextStyle(fontSize: 12,),
-                    ),
-                    Text(
-                      'every 10 minutes',
-                      style: TextStyle(fontSize: 12,),
-                    ),
+                    // SizedBox(height: 10),
+                    // Text(
+                    //   'Your QR Code will be automatically regenerated',
+                    //   style: TextStyle(fontSize: 12,),
+                    // ),
+                    // Text(
+                    //   'every 10 minutes',
+                    //   style: TextStyle(fontSize: 12,),
+                    // ),
 
                   ],
                  
