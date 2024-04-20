@@ -1,7 +1,10 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:jakka_app/pages/report_page.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:jakka_app/components/my_report_column.dart';
 import 'package:jakka_app/constants.dart';
 import 'package:jakka_app/helper/helper_functions.dart';
 
@@ -13,17 +16,91 @@ class Newreportpage extends StatefulWidget {
 }
 
 class _NewreportpageState extends State<Newreportpage> {
+  final TextEditingController _reportTextController = TextEditingController();
+
+  // current logged in user
+  User? currentUser = FirebaseAuth.instance.currentUser;
+
+  // future to fetch uesr details
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserDetails() async {
+    return await FirebaseFirestore.instance
+        .collection("User")
+        .doc(currentUser!.uid)
+        .get();
+  }
+
+  File? image;
+
+  // pick image from our gallery
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  // save report's data to firestore
+  saveReport({dateTime, jakkaNo}) async {
+    final docUser = FirebaseFirestore.instance.collection('Report').doc();
+
+    final json = {
+      'Date': FieldValue.serverTimestamp(),
+      'Jakka_No': jakkaNo,
+      'Pic': "",
+      'Problem': _reportTextController.text,
+      'Status': "Accepted",
+      'User': currentUser!.uid,
+    };
+
+    await docUser.set(json);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: displayAppBar('New Report'),
-      body: ListView(
-        children: [const SizedBox(height: 15), _newreportSection()],
+      body: FutureBuilder(
+        future: getUserDetails(),
+        builder: (context, snapshot) {
+          // loading...
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          // error
+          else if (snapshot.hasError) {
+            return Text("Error: ${snapshot.error}");
+          }
+
+          // data receive
+          else if (snapshot.hasData) {
+            // extract data
+            Map<String, dynamic>? user = snapshot.data!.data();
+
+            return ListView(
+              children: [
+                const SizedBox(height: 15),
+                _newreportSection(user: user)
+              ],
+            );
+          } else {
+            return const Text("No data");
+          }
+        },
       ),
     );
   }
 
-  Column _newreportSection() {
+  Column _newreportSection({
+    required Map<String, dynamic>? user,
+  }) {
     String formattedDateTime =
         DateFormat('E dd/MM/yyyy HH:mm').format(DateTime.now());
     return Column(
@@ -31,7 +108,11 @@ class _NewreportpageState extends State<Newreportpage> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 20),
-          child: MyNewReportColumn(),
+          child: showRepoterConponent(
+              studentID: user!['Student_ID'],
+              name: '${user['Firstname']} ${user['Surname']}',
+              dateTime: formattedDateTime,
+              jakkaNo: user['Jakka_No']),
         ),
         Center(
           child: SizedBox(
@@ -43,10 +124,11 @@ class _NewreportpageState extends State<Newreportpage> {
                   primaryColorDark: kSkyBlueColor,
                 ),
                 child: TextField(
+                  controller: _reportTextController,
                   decoration: InputDecoration(
                       hintText: 'Describe your problem here.',
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 100, horizontal: 20),
+                          vertical: 96, horizontal: 20),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: const BorderSide(
@@ -57,6 +139,7 @@ class _NewreportpageState extends State<Newreportpage> {
                 ),
               )),
         ),
+        const SizedBox(height: 12),
         const Padding(
           padding: EdgeInsets.only(left: 20),
           child: Column(
@@ -72,26 +155,29 @@ class _NewreportpageState extends State<Newreportpage> {
         ),
         Center(
           child: SizedBox(
-              height: 100,
+              height: 250,
               width: 320,
               child: Theme(
                 data: ThemeData(
                   primaryColor: kSkyBlueColor,
                   primaryColorDark: kSkyBlueColor,
                 ),
-                child: TextField(
-                  decoration: InputDecoration(
-                      hintText: 'Upload your photo here.',
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 100, horizontal: 20),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(
-                          color: kSkyBlueColor,
-                          width: 2,
-                        ),
-                      )),
-                ),
+                child: image != null
+                    ? Column(
+                        children: [
+                          Image.file(
+                            image!,
+                            width: 110,
+                            height: 110,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          myImagePickBtn()
+                        ],
+                      )
+                    : myImagePickBtn(),
               )),
         ),
         Center(
@@ -105,6 +191,8 @@ class _NewreportpageState extends State<Newreportpage> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  saveReport(
+                      dateTime: formattedDateTime, jakkaNo: user['Jakka_No']);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kSkyBlueColor,
@@ -124,6 +212,24 @@ class _NewreportpageState extends State<Newreportpage> {
             kHomePageSmlSizedBox,
           ],
         )),
+      ],
+    );
+  }
+
+  Column myImagePickBtn() {
+    return Column(
+      children: [
+        buildButton(
+          title: 'Pick Gallery',
+          icon: Icons.image_outlined,
+          onClicked: () => pickImage(ImageSource.gallery),
+        ),
+        const SizedBox(height: 6),
+        buildButton(
+          title: 'Pick Camera',
+          icon: Icons.camera_alt_outlined,
+          onClicked: () => pickImage(ImageSource.camera),
+        ),
       ],
     );
   }

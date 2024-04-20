@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jakka_app/components/homePage/my_bike_amount.dart';
-import 'package:jakka_app/components/homePage/my_home_page_pic.dart';
-import 'package:jakka_app/components/homePage/my_news_section.dart';
+import 'package:jakka_app/components/homePage/user_profile.dart';
+import 'package:jakka_app/components/homePage/news/my_news_section.dart';
 import 'package:jakka_app/components/homePage/user_tab.dart';
 import 'package:jakka_app/constants.dart';
 import 'package:jakka_app/models/news_model.dart';
@@ -32,7 +32,7 @@ class _HomepageState extends State<Homepage> {
           kHomePageSizedBox,
           _availableSection(),
           kHomePageSizedBox,
-          MyNewsSection(news: news),
+          const MyNewsSection(),
           kHomePageSizedBox,
           _myjakkaSection(),
           kHomePageSizedBox,
