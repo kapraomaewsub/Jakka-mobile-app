@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jakka_app/components/my_bike_amount.dart';
-import 'package:jakka_app/components/my_home_page_pic.dart';
-import 'package:jakka_app/components/user_tab.dart';
+import 'package:jakka_app/components/homePage/my_bike_amount.dart';
+import 'package:jakka_app/components/homePage/my_home_page_pic.dart';
+import 'package:jakka_app/components/homePage/my_news_section.dart';
+import 'package:jakka_app/components/homePage/user_tab.dart';
+import 'package:jakka_app/constants.dart';
 import 'package:jakka_app/models/news_model.dart';
 import 'package:jakka_app/pages/notification_page.dart';
 import 'package:intl/intl.dart';
@@ -27,13 +29,13 @@ class _HomepageState extends State<Homepage> {
       appBar: homeAppBar(),
       body: ListView(
         children: [
-          SizedBox(height: 20),
+          kHomePageSizedBox,
           _availableSection(),
-          SizedBox(height: 20),
-          _newsSection(),
-          SizedBox(height: 20),
+          kHomePageSizedBox,
+          MyNewsSection(news: news),
+          kHomePageSizedBox,
           _myjakkaSection(),
-          SizedBox(height: 20),
+          kHomePageSizedBox,
         ],
       ),
     );
@@ -59,8 +61,6 @@ class _HomepageState extends State<Homepage> {
   }
 
   Column _availableSection() {
-    String formattedDateTime =
-        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Padding(
         padding: EdgeInsets.only(left: 20),
@@ -73,58 +73,9 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      SizedBox(height: 5),
+      kHomePageSmlSizedBox,
       Center(child: BikeAmount()),
     ]);
-  }
-
-  Column _newsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Text(
-            'Jakka News',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        SizedBox(height: 5),
-        Container(
-          height: 150,
-          child: ListView.separated(
-            itemCount: news.length,
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            separatorBuilder: (context, index) => const SizedBox(width: 20),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 120,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image(
-                        image: AssetImage(news[index].imagePath),
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Text(news[index].name)
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
   }
 
   Column _myjakkaSection() {
@@ -142,7 +93,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      SizedBox(height: 5),
+      kHomePageSmlSizedBox,
       Center(
         child: Container(
           height: 100,
@@ -150,8 +101,7 @@ class _HomepageState extends State<Homepage> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color:
-                  Color.fromRGBO(189, 205, 234, 1), // Set the border color here
+              color: kSkyBlueColor, // Set the border color here
               width: 2, // Set the border width
             ),
           ),
@@ -163,13 +113,13 @@ class _HomepageState extends State<Homepage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${formattedDateTime}',
-                    style: TextStyle(
+                    formattedDateTime,
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'No.224',
                     style: TextStyle(
                       color: Colors.black,
@@ -179,8 +129,8 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ],
               ),
-              SizedBox(width: 50),
-              Column(
+              const SizedBox(width: 50),
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

@@ -18,7 +18,7 @@ class BikeAmount extends StatelessWidget {
       builder: (context, snapshot) {
         // an errors
         if (snapshot.hasError) {
-          Text("Something went wrong");
+          const Text("Something went wrong");
         }
 
         // show loading circle
@@ -39,7 +39,7 @@ class BikeAmount extends StatelessWidget {
           height: 120,
           width: 350,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(189, 205, 234, 0.5),
+            color: const Color.fromRGBO(189, 205, 234, 0.5),
             borderRadius: BorderRadius.circular(20), // Set border radius
           ),
           child: Row(
@@ -50,15 +50,15 @@ class BikeAmount extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${formattedDateTime}',
-                    style: TextStyle(
+                    formattedDateTime,
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,
                     ),
                   ),
                   Text(
                     '${users.length} คัน',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 50,
                       fontWeight: FontWeight.w400,
@@ -66,8 +66,8 @@ class BikeAmount extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(width: 20),
-              Image(
+              const SizedBox(width: 20),
+              const Image(
                 image: AssetImage('assets/bicycle_icon.png'),
                 height: 120,
                 width: 120,

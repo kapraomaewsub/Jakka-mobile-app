@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jakka_app/components/my_qr_code.dart';
 import 'package:jakka_app/constants.dart';
+import 'package:jakka_app/helper/helper_functions.dart';
 
 class MyQRpage extends StatefulWidget {
   const MyQRpage({super.key});
@@ -13,7 +14,7 @@ class _MyQRpageState extends State<MyQRpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myqrAppBar(),
+      appBar: displayAppBar('My QR'),
       body: ListView(
         children: [
           const SizedBox(height: 20),
@@ -21,19 +22,6 @@ class _MyQRpageState extends State<MyQRpage> {
         ],
       ),
     );
-  }
-
-  AppBar myqrAppBar() {
-    return AppBar(
-        title: const Text(
-          'My QR',
-          style: TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        toolbarHeight: 60,
-        backgroundColor: kAppbarBg,
-        centerTitle: true,
-        shape: kAppbarShape);
   }
 
   Column _myqrSection() {
@@ -88,9 +76,7 @@ class _MyQRpageState extends State<MyQRpage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      child: MyQRCode(),
-                    ),
+                    MyQRCode(),
                   ],
                 ),
               ],

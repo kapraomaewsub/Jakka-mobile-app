@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jakka_app/constants.dart';
+import 'package:jakka_app/helper/helper_functions.dart';
 import 'package:jakka_app/models/notification_model.dart';
 
 class Notificationpage extends StatefulWidget {
@@ -19,31 +21,12 @@ class _NotificationpageState extends State<Notificationpage> {
   Widget build(BuildContext context) {
     _getNotfication();
     return Scaffold(
-      appBar: notificationAppBar(),
+      appBar: displayAppBar('Notifications'),
       body: ListView(
         children: [
           const SizedBox(height: 20),
           _notificationSection(),
         ],
-      ),
-    );
-  }
-
-  AppBar notificationAppBar() {
-    return AppBar(
-      title: const Text(
-        'Notifications',
-        style: TextStyle(
-            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-      toolbarHeight: 60,
-      backgroundColor: Color.fromRGBO(34, 72, 158, 1),
-      centerTitle: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(25),
-        ),
       ),
     );
   }
@@ -66,9 +49,9 @@ class _NotificationpageState extends State<Notificationpage> {
                 width: 120,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color.fromRGBO(245, 245, 245, 1),
+                  color: kWhiteColor,
                   border: Border.all(
-                    color: Color.fromRGBO(189, 205, 234, 1),
+                    color: kSkyBlueColor,
                     width: 2, // Set the border width
                   ),
                 ),

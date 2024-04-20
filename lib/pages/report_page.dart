@@ -17,7 +17,7 @@ class _ReportpageState extends State<Reportpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: reportpageAppBar(),
+      appBar: displayAppBar('Report Jakka'),
       body: ListView(
         children: [
           const SizedBox(height: 20),
@@ -40,25 +40,11 @@ class _ReportpageState extends State<Reportpage> {
     );
   }
 
-  AppBar reportpageAppBar() {
-    return AppBar(
-      title: const Text(
-        'Report Jakka',
-        style: TextStyle(
-            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-      toolbarHeight: 60,
-      backgroundColor: kAppbarBg,
-      centerTitle: true,
-      shape: kAppbarShape,
-    );
-  }
-
   Column _reportSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 500,
           width: 500,
           child: StreamBuilder(
@@ -106,9 +92,9 @@ class _ReportpageState extends State<Reportpage> {
                   String status = history['Status'];
 
                   return MyListMessage(
-                      leftTop: '${formattedDateTimee}',
-                      leftBtm: 'Jakka No. ${jakkaNo}',
-                      rightSec: '${status}');
+                      leftTop: formattedDateTimee,
+                      leftBtm: 'Jakka No. $jakkaNo',
+                      rightSec: status);
                 },
               );
             },

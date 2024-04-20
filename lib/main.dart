@@ -5,7 +5,6 @@ import 'package:jakka_app/pages/history_page.dart';
 import 'package:jakka_app/pages/myqr_page.dart';
 import 'package:jakka_app/pages/report_page.dart';
 import 'package:jakka_app/pages/account_page.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

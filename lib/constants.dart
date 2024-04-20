@@ -19,3 +19,16 @@ const kListBoxDecoration = BoxDecoration(
 );
 
 const kSkyBlueColor = Color.fromRGBO(189, 205, 234, 1);
+
+const kWhiteColor = Color.fromRGBO(245, 245, 245, 1);
+
+const kNewReportHeadTextStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+);
+
+const kReportTextStyle = TextStyle(fontSize: 16);
+
+const kHomePageSizedBox = SizedBox(height: 20);
+
+const kHomePageSmlSizedBox = SizedBox(height: 5);

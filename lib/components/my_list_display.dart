@@ -24,7 +24,7 @@ class _MyListMessageState extends State<MyListMessage> {
       width: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color.fromRGBO(245, 245, 245, 1),
+        color: kWhiteColor,
         border: Border.all(
           color: kSkyBlueColor,
           width: 2, // Set the border width

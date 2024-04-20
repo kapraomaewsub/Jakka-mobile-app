@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jakka_app/components/my_list_display.dart';
-import 'package:jakka_app/constants.dart';
 import 'package:jakka_app/helper/helper_functions.dart';
 import 'package:jakka_app/models/history_model.dart';
 
@@ -23,7 +22,7 @@ class _HistorypageState extends State<Historypage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: historyAppBar(),
+      appBar: displayAppBar('History'),
       body: ListView(
         children: [
           const SizedBox(height: 20),
@@ -33,25 +32,11 @@ class _HistorypageState extends State<Historypage> {
     );
   }
 
-  AppBar historyAppBar({text}) {
-    return AppBar(
-      title: const Text(
-        'History',
-        style: TextStyle(
-            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-      toolbarHeight: 60,
-      backgroundColor: kAppbarBg,
-      centerTitle: true,
-      shape: kAppbarShape,
-    );
-  }
-
   Column _historySection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 500,
           width: 500,
           child: StreamBuilder(
@@ -103,9 +88,9 @@ class _HistorypageState extends State<Historypage> {
                   //print(formattedDateTime);
 
                   return MyListMessage(
-                      leftTop: '${formattedDateTime}',
-                      leftBtm: 'Jakka No. ${jakkaNo}',
-                      rightSec: '${returnedMsg}');
+                      leftTop: formattedDateTime,
+                      leftBtm: 'Jakka No. $jakkaNo',
+                      rightSec: returnedMsg);
                 },
               );
             },
