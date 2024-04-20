@@ -37,7 +37,7 @@ class BikeAmount extends StatelessWidget {
 
         return Container(
           height: 120,
-          width: 320,
+          width: 350,
           decoration: BoxDecoration(
             color: Color.fromRGBO(189, 205, 234, 0.5),
             borderRadius: BorderRadius.circular(20), // Set border radius

@@ -27,12 +27,13 @@ class _HomepageState extends State<Homepage> {
       appBar: homeAppBar(),
       body: ListView(
         children: [
+          SizedBox(height: 20),
           _availableSection(),
-          SizedBox(height: 15),
+          SizedBox(height: 20),
           _newsSection(),
-          SizedBox(height: 15),
+          SizedBox(height: 20),
           _myjakkaSection(),
-          SizedBox(height: 15),
+          SizedBox(height: 20),
         ],
       ),
     );
@@ -145,7 +146,7 @@ class _HomepageState extends State<Homepage> {
       Center(
         child: Container(
           height: 100,
-          width: 320,
+          width: 350,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
