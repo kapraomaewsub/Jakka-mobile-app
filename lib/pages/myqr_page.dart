@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jakka_app/components/my_qr_code.dart';
 import 'package:jakka_app/constants.dart';
 
 class MyQRpage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _MyQRpageState extends State<MyQRpage> {
       appBar: myqrAppBar(),
       body: ListView(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _myqrSection(),
         ],
       ),
@@ -45,8 +46,7 @@ class _MyQRpageState extends State<MyQRpage> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: Color.fromRGBO(
-                    189, 205, 234, 1), // Set the border color here
+                color: kSkyBlueColor, // Set the border color here
                 width: 2, // Set the border width
               ),
             ),
@@ -56,15 +56,15 @@ class _MyQRpageState extends State<MyQRpage> {
                 Container(
                   height: 50,
                   width: 300,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(189, 205, 234, 1),
+                  decoration: const BoxDecoration(
+                    color: kSkyBlueColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
                     ),
                   ),
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'My QR Code',
                     style: TextStyle(
                       fontSize: 16,
@@ -72,104 +72,25 @@ class _MyQRpageState extends State<MyQRpage> {
                     ),
                   ),
                 ),
-<<<<<<< Updated upstream
-
-                SizedBox(height: 20),
-
-=======
-                SizedBox(height: 10),
->>>>>>> Stashed changes
+                const SizedBox(height: 20),
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       'Please be careful when showing the QR Code',
                       style: TextStyle(
                         fontSize: 12,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'as it contains personal information.',
                       style: TextStyle(
                         fontSize: 12,
                       ),
                     ),
-<<<<<<< Updated upstream
-
-                    SizedBox(height: 20),
-
-=======
-                    SizedBox(height: 10),
->>>>>>> Stashed changes
-                    Image(
-                      image: AssetImage('assets/qrcode.jpg'),
-                      width: 200,
-                      height: 200,
+                    const SizedBox(height: 20),
+                    Container(
+                      child: MyQRCode(),
                     ),
-<<<<<<< Updated upstream
-
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Image(
-                    //       image: AssetImage('assets/clock.jpg'),
-                    //       width: 16,
-                    //       height: 16,
-                    //     ),
-
-                        // SizedBox(width: 5),
-                        // Text(
-                        //   '07:32',
-                        //   style: TextStyle(
-                        //     fontSize: 14,
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
-                    //   ],
-                    // ),
-
-                    // SizedBox(height: 10),
-                    // Text(
-                    //   'Your QR Code will be automatically regenerated',
-                    //   style: TextStyle(fontSize: 12,),
-                    // ),
-                    // Text(
-                    //   'every 10 minutes',
-                    //   style: TextStyle(fontSize: 12,),
-                    // ),
-
-=======
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          image: AssetImage('assets/clock.jpg'),
-                          width: 16,
-                          height: 16,
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          '07:32',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Your QR Code will be automatically regenerated',
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                    Text(
-                      'every 10 minutes',
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
->>>>>>> Stashed changes
                   ],
                 ),
               ],
