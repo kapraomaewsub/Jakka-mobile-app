@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jakka_app/pages/login_page.dart';
+import 'package:jakka_app/auth/auth.dart';
 import 'package:jakka_app/pages/home_page.dart';
 import 'package:jakka_app/pages/history_page.dart';
 import 'package:jakka_app/pages/myqr_page.dart';
@@ -24,7 +24,7 @@ class BottomNavigationBarExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Loginpage(),
+      home: AuthPage(),
     );
   }
 }
@@ -57,57 +57,59 @@ class _BottomNavigationBarExampleState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 65,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25.0),
-            topRight: Radius.circular(25.0),
-          ),
-          child: Wrap(
-            children: [
-              BottomNavigationBar(
-                backgroundColor: const Color.fromRGBO(214, 205, 197, 0.5),
-                type: BottomNavigationBarType.fixed,
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home_outlined),
-                    label: 'Home',
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: SizedBox(
+          height: 65,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              topRight: Radius.circular(25.0),
+            ),
+            child: Wrap(
+              children: [
+                BottomNavigationBar(
+                  backgroundColor: const Color.fromRGBO(214, 205, 197, 0.5),
+                  type: BottomNavigationBarType.fixed,
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home_outlined),
+                      label: 'Home',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.qr_code),
+                      label: 'My QR',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.history),
+                      label: 'History',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.sync_problem_outlined),
+                      label: 'Report',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.person_2_outlined),
+                      label: 'Account',
+                    ),
+                  ],
+                  currentIndex: _selectedIndex,
+                  selectedItemColor: Colors.black,
+                  onTap: _onItemTapped,
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
+                  selectedIconTheme: const IconThemeData(
+                    color: Colors.black,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.qr_code),
-                    label: 'My QR',
+                  unselectedIconTheme: const IconThemeData(
+                    color: Colors.grey,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.history),
-                    label: 'History',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.sync_problem_outlined),
-                    label: 'Report',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person_2_outlined),
-                    label: 'Account',
-                  ),
-                ],
-                currentIndex: _selectedIndex,
-                selectedItemColor: Colors.black,
-                onTap: _onItemTapped,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                selectedIconTheme: const IconThemeData(
-                  color: Colors.black,
                 ),
-                unselectedIconTheme: const IconThemeData(
-                  color: Colors.grey,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

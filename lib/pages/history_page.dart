@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:jakka_app/components/my_list_display.dart';
+import 'package:jakka_app/constants.dart';
+import 'package:jakka_app/helper/helper_functions.dart';
 import 'package:jakka_app/models/history_model.dart';
 
 class Historypage extends StatefulWidget {
@@ -11,25 +16,24 @@ class Historypage extends StatefulWidget {
 class _HistorypageState extends State<Historypage> {
   List<HistoryModel> history = [];
 
-  void _getHistory() {
-    history = HistoryModel.getHistory();
-  }
+  // void _getHistory() {
+  //   history = HistoryModel.getHistory();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _getHistory();
     return Scaffold(
       appBar: historyAppBar(),
       body: ListView(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _historySection(),
         ],
       ),
     );
   }
 
-  AppBar historyAppBar() {
+  AppBar historyAppBar({text}) {
     return AppBar(
       title: const Text(
         'History',
@@ -37,14 +41,9 @@ class _HistorypageState extends State<Historypage> {
             color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
       ),
       toolbarHeight: 60,
-      backgroundColor: Color.fromRGBO(34, 72, 158, 1),
+      backgroundColor: kAppbarBg,
       centerTitle: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(25),
-        ),
-      ),
+      shape: kAppbarShape,
     );
   }
 
@@ -55,64 +54,59 @@ class _HistorypageState extends State<Historypage> {
         Container(
           height: 500,
           width: 500,
-          child: ListView.separated(
-            itemCount: history.length,
-            scrollDirection: Axis.vertical,
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            separatorBuilder: (context, index) => const SizedBox(height: 10),
-            itemBuilder: (context, index) {
-              return Container(
-                height: 50,
-                width: 120,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color.fromRGBO(245, 245, 245, 1),
-                  border: Border.all(
-                    color: Color.fromRGBO(189, 205, 234, 1),
-                    width: 2, // Set the border width
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 46,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(189, 205, 234, 1),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(7),
-                                    bottomLeft: Radius.circular(7),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 15),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(history[index].date),
-                                  Text(history[index].jakkaNo),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Text(
-                            history[index].status,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("History")
+                .where("user",
+                    isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              // an errors
+              if (snapshot.hasError) {
+                displayMessageToUser("Something went wrong", context);
+              }
+
+              // show loading circle
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (snapshot.data == null) {
+                return const Text("No Data");
+              }
+
+              // get all users
+              final histories = snapshot.data!.docs;
+
+              return ListView.separated(
+                itemCount: histories.length,
+                scrollDirection: Axis.vertical,
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+                itemBuilder: (context, index) {
+                  // gei individual history
+                  final history = histories[index];
+
+                  // get data from each history
+
+                  var timest = history['Date'];
+                  var newew = DateTime.parse(timest.toDate().toString());
+                  var formattedDateTime = displayDateFormat(newew);
+                  String jakkaNo = history['Jakka_No'];
+                  bool returned = history['Returned'];
+
+                  String returnedMsg = returned ? 'Returned' : 'Not Returned';
+
+                  //print(formattedDateTime);
+
+                  return MyListMessage(
+                      leftTop: '${formattedDateTime}',
+                      leftBtm: 'Jakka No. ${jakkaNo}',
+                      rightSec: '${returnedMsg}');
+                },
               );
             },
           ),
