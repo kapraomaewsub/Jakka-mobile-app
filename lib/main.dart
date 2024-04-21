@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jakka_app/auth/auth.dart';
 import 'package:jakka_app/pages/home_page.dart';
 import 'package:jakka_app/pages/history_page.dart';
+import 'package:jakka_app/pages/login_page.dart';
 import 'package:jakka_app/pages/myqr_page.dart';
 import 'package:jakka_app/pages/report_page.dart';
 import 'package:jakka_app/pages/account_page.dart';
@@ -23,7 +24,7 @@ class BottomNavigationBarExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthPage(),
+      home: Loginpage(),
     );
   }
 }
