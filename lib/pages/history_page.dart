@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jakka_app/components/my_list_display.dart';
 import 'package:jakka_app/helper/helper_functions.dart';
-import 'package:jakka_app/models/history_model.dart';
 
 class Historypage extends StatefulWidget {
   const Historypage({super.key});
@@ -13,11 +12,6 @@ class Historypage extends StatefulWidget {
 }
 
 class _HistorypageState extends State<Historypage> {
-  List<HistoryModel> history = [];
-
-  // void _getHistory() {
-  //   history = HistoryModel.getHistory();
-  // }
 
   @override
   Widget build(BuildContext context) {
