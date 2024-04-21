@@ -64,12 +64,10 @@ class _HistorypageState extends State<Historypage> {
               // get all users
               final histories = snapshot.data!.docs;
 
-              return ListView.separated(
+              return ListView.builder(
                 itemCount: histories.length,
                 scrollDirection: Axis.vertical,
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 10),
                 itemBuilder: (context, index) {
                   // gei individual history
                   final history = histories[index];
@@ -91,30 +89,24 @@ class _HistorypageState extends State<Historypage> {
                   TextStyle textStyling =
                       returned ? returnedTextStyle : notReturnedTextStyle;
 
-                  Widget displayHistory =
-                      history['user'] == FirebaseAuth.instance.currentUser!.uid
-                          ? MyListMessage(
-                              leftTop: formattedDateTime,
-                              leftBtm: 'Jakka No. $jakkaNo',
-                              rightSec: returnedMsg,
-                              rightSecStyle: textStyling,
-                            )
-                          : Container();
+                  // Widget displayHistory =
+                  //     history['user'] == FirebaseAuth.instance.currentUser!.uid
+                  //         ?
+                  //         : Empty;
 
                   //print(formattedDateTime);
 
-                  // if (history['user'] ==
-                  //     FirebaseAuth.instance.currentUser!.uid) {
-                  //   return MyListMessage(
-                  //     leftTop: formattedDateTime,
-                  //     leftBtm: 'Jakka No. $jakkaNo',
-                  //     rightSec: returnedMsg,
-                  //     rightSecStyle: textStyling,
-                  //   );
-                  // } else {
-                  //   return Container();
-                  // }
-                  return displayHistory;
+                  if (history['user'] ==
+                      FirebaseAuth.instance.currentUser!.uid) {
+                    return MyListMessage(
+                      leftTop: formattedDateTime,
+                      leftBtm: 'Jakka No. $jakkaNo',
+                      rightSec: returnedMsg,
+                      rightSecStyle: textStyling,
+                    );
+                  }
+
+                  return SizedBox.shrink();
                 },
               );
             },
