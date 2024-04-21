@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jakka_app/components/homePage/my_bike_amount.dart';
+import 'package:jakka_app/components/homePage/user_bike_no.dart';
 import 'package:jakka_app/components/homePage/user_profile.dart';
 import 'package:jakka_app/components/homePage/news/my_news_section.dart';
 import 'package:jakka_app/components/homePage/user_tab.dart';
 import 'package:jakka_app/constants.dart';
-import 'package:jakka_app/models/news_model.dart';
 import 'package:jakka_app/pages/notification_page.dart';
 import 'package:intl/intl.dart';
 
@@ -16,34 +18,66 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List<NewsModel> news = [];
+  // current logged in user
+  User? currentUser = FirebaseAuth.instance.currentUser;
 
-  void _getNews() {
-    news = NewsModel.getNews();
+  // future to fetch uesr details
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserDetails() async {
+    return await FirebaseFirestore.instance
+        .collection("User")
+        .doc(currentUser!.uid)
+        .get();
   }
 
   @override
   Widget build(BuildContext context) {
-    _getNews();
     return Scaffold(
       appBar: homeAppBar(),
-      body: ListView(
-        children: [
-          kHomePageSizedBox,
-          _availableSection(),
-          kHomePageSizedBox,
-          const MyNewsSection(),
-          kHomePageSizedBox,
-          _myjakkaSection(),
-          kHomePageSizedBox,
-        ],
+      body: FutureBuilder(
+        future: getUserDetails(),
+        builder: (context, snapshot) {
+          // loading...
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          // error
+          else if (snapshot.hasError) {
+            return Text("Error: ${snapshot.error}");
+          }
+
+          // data receive
+          else if (snapshot.hasData) {
+            // extract data
+            Map<String, dynamic>? user = snapshot.data!.data();
+
+            return ListView(
+              children: [
+                kHomePageSizedBox,
+                _availableSection(),
+                kHomePageSizedBox,
+                const MyNewsSection(),
+                kHomePageSizedBox,
+                _myjakkaSection(),
+                kHomePageSizedBox,
+              ],
+            );
+          } else {
+            return const Text("No data");
+          }
+        },
       ),
     );
   }
 
-  AppBar homeAppBar() {
+  AppBar homeAppBar({user}) {
+    // get user
+    final Map<String, dynamic>? user;
+
     return AppBar(
-      title: UserTab(),
+      title: DisplayUserInfo(firstName: 'Chanomyen', surName: 'Red'),
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications_active_outlined),
@@ -55,7 +89,10 @@ class _HomepageState extends State<Homepage> {
                     builder: (context) => const Notificationpage()));
           },
         ),
-        MyHomePic(),
+        const DisplayUserProfilePic(
+          imagePath:
+              'https://firebasestorage.googleapis.com/v0/b/jakkaapp.appspot.com/o/Student%2FProfilepic%2FUser_04.jpg?alt=media&token=7b4d2c61-ba86-4c03-9abd-592f62ba26b3',
+        ),
       ],
     );
   }
@@ -95,65 +132,9 @@ class _HomepageState extends State<Homepage> {
       ),
       kHomePageSmlSizedBox,
       Center(
-        child: Container(
-          height: 100,
-          width: 350,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: kSkyBlueColor, // Set the border color here
-              width: 2, // Set the border width
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    formattedDateTime,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const Text(
-                    'No.224',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 36,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 50),
-              const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Not',
-                    style: TextStyle(
-                      color: Color.fromRGBO(116, 17, 2, 1),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'returned',
-                    style: TextStyle(
-                      color: Color.fromRGBO(116, 17, 2, 1),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        child: MyUserJakkaNo(
+          formattedDateTime: formattedDateTime,
+          jakkaNo: '224',
         ),
       ),
     ]);
