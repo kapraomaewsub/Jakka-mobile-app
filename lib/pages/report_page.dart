@@ -73,12 +73,10 @@ class _ReportpageState extends State<Reportpage> {
               // get all users
               final histories = snapshot.data!.docs;
 
-              return ListView.separated(
+              return ListView.builder(
                 itemCount: histories.length,
                 scrollDirection: Axis.vertical,
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 10),
                 itemBuilder: (context, index) {
                   // gei individual history
                   final history = histories[index];

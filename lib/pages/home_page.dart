@@ -31,53 +31,51 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: homeAppBar(),
-      body: FutureBuilder(
-        future: getUserDetails(),
-        builder: (context, snapshot) {
-          // loading...
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+    return FutureBuilder(
+      future: getUserDetails(),
+      builder: (context, snapshot) {
+        // loading...
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-          // error
-          else if (snapshot.hasError) {
-            return Text("Error: ${snapshot.error}");
-          }
+        // error
+        else if (snapshot.hasError) {
+          return Text("Error: ${snapshot.error}");
+        }
 
-          // data receive
-          else if (snapshot.hasData) {
-            // extract data
-            Map<String, dynamic>? user = snapshot.data!.data();
+        // data receive
+        else if (snapshot.hasData) {
+          // extract data
+          Map<String, dynamic>? user = snapshot.data!.data();
 
-            return ListView(
+          return Scaffold(
+            appBar: homeAppBar(user: user),
+            body: ListView(
               children: [
                 kHomePageSizedBox,
                 _availableSection(),
                 kHomePageSizedBox,
                 const MyNewsSection(),
                 kHomePageSizedBox,
-                _myjakkaSection(),
+                _myjakkaSection(user: user),
                 kHomePageSizedBox,
               ],
-            );
-          } else {
-            return const Text("No data");
-          }
-        },
-      ),
+            ),
+          );
+        } else {
+          return const Text("No data");
+        }
+      },
     );
   }
 
   AppBar homeAppBar({user}) {
-    // get user
-    final Map<String, dynamic>? user;
-
     return AppBar(
-      title: DisplayUserInfo(firstName: 'Chanomyen', surName: 'Red'),
+      title: DisplayUserInfo(
+          firstName: user!['Firstname'], surName: user!['Surname']),
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications_active_outlined),
@@ -89,9 +87,8 @@ class _HomepageState extends State<Homepage> {
                     builder: (context) => const Notificationpage()));
           },
         ),
-        const DisplayUserProfilePic(
-          imagePath:
-              'https://firebasestorage.googleapis.com/v0/b/jakkaapp.appspot.com/o/Student%2FProfilepic%2FUser_04.jpg?alt=media&token=7b4d2c61-ba86-4c03-9abd-592f62ba26b3',
+        DisplayUserProfilePic(
+          imagePath: user!['Profilepic'],
         ),
       ],
     );
@@ -115,7 +112,7 @@ class _HomepageState extends State<Homepage> {
     ]);
   }
 
-  Column _myjakkaSection() {
+  Column _myjakkaSection({user}) {
     String formattedDateTime =
         DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -134,7 +131,7 @@ class _HomepageState extends State<Homepage> {
       Center(
         child: MyUserJakkaNo(
           formattedDateTime: formattedDateTime,
-          jakkaNo: '224',
+          jakkaNo: user['Jakka_No'],
         ),
       ),
     ]);

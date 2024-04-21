@@ -82,10 +82,10 @@ class _HistorypageState extends State<Historypage> {
 
                   String returnedMsg = returned ? 'Returned' : 'Not Returned';
 
-                  TextStyle returnedTextStyle = TextStyle(
+                  TextStyle returnedTextStyle = const TextStyle(
                       color: Colors.green, fontWeight: FontWeight.bold);
-                  TextStyle notReturnedTextStyle =
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold);
+                  TextStyle notReturnedTextStyle = const TextStyle(
+                      color: Colors.red, fontWeight: FontWeight.bold);
                   TextStyle textStyling =
                       returned ? returnedTextStyle : notReturnedTextStyle;
 
@@ -106,7 +106,7 @@ class _HistorypageState extends State<Historypage> {
                     );
                   }
 
-                  return SizedBox.shrink();
+                  return const SizedBox.shrink();
                 },
               );
             },
