@@ -7,6 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:jakka_app/constants.dart';
 import 'package:jakka_app/helper/helper_functions.dart';
+import 'package:jakka_app/resources.dart/add_data.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class Newreportpage extends StatefulWidget {
   const Newreportpage({super.key});
@@ -37,28 +40,49 @@ class _NewreportpageState extends State<Newreportpage> {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
 
-      final imageTemporary = File(image.path);
-      setState(() => this.image = imageTemporary);
+      //final imageTemporary = File(image.path);
+      final imagePermanent = await saveImagePermanently(image.path);
+
+      setState(() => this.image = imagePermanent);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
 
-  // save report's data to firestore
-  saveReport({dateTime, jakkaNo}) async {
-    final docUser = FirebaseFirestore.instance.collection('Report').doc();
+  Future<File> saveImagePermanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = basename(imagePath);
+    final image = File('${directory.path}/$name');
 
-    final json = {
-      'Date': FieldValue.serverTimestamp(),
-      'Jakka_No': jakkaNo,
-      'Pic': "",
-      'Problem': _reportTextController.text,
-      'Status': "Accepted",
-      'User': currentUser!.uid,
-    };
-
-    await docUser.set(json);
+    return File(imagePath).copy(image.path);
   }
+
+  void saveReport({jakkaNo}) async {
+    String resp = await StoreData().saveData(
+      date: Timestamp.now(),
+      jakkaNo: jakkaNo,
+      status: "Accepted",
+      problem: _reportTextController.text,
+      user: currentUser!.uid,
+      file: image!.readAsBytesSync(),
+    );
+  }
+
+  // // save report's data to firestore
+  // saveReport({dateTime, jakkaNo}) async {
+  //   final docUser = FirebaseFirestore.instance.collection('Report').doc();
+
+  //   final json = {
+  //     'Date': FieldValue.serverTimestamp(),
+  //     'Jakka_No': jakkaNo,
+  //     'Pic': "",
+  //     'Problem': _reportTextController.text,
+  //     'Status': "Accepted",
+  //     'User': currentUser!.uid,
+  //   };
+
+  //   await docUser.set(json);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -190,9 +214,8 @@ class _NewreportpageState extends State<Newreportpage> {
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  saveReport(
-                      dateTime: formattedDateTime, jakkaNo: user['Jakka_No']);
+                  Navigator.pop(this.context);
+                  saveReport(jakkaNo: user['Jakka_No']);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kSkyBlueColor,

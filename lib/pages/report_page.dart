@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jakka_app/components/my_list_display.dart';
 import 'package:jakka_app/constants.dart';
 import 'package:jakka_app/helper/helper_functions.dart';
 import 'package:jakka_app/pages/newreport_page.dart';
+import 'package:intl/intl.dart' as intl;
 
 class Reportpage extends StatefulWidget {
   const Reportpage({super.key});
@@ -81,17 +81,18 @@ class _ReportpageState extends State<Reportpage> {
                   final history = histories[index];
 
                   // get data from each history
-                  var timestt = history['Date'];
-                  var neww = DateTime.parse(timestt.toDate().toString());
-                  var formattedDateTimee = displayDateFormat(neww);
+                  //var timestamp = history['Date'];
+                  DateTime dt = (history['Date'] as Timestamp).toDate();
+                  String formattedDate =
+                      intl.DateFormat('dd/MM/yyyy HH:mm').format(dt);
                   String jakkaNo = history['Jakka_No'];
                   String status = history['Status'];
 
-                  TextStyle acceptedTextStyle = TextStyle(
+                  TextStyle acceptedTextStyle = const TextStyle(
                       color: Colors.blueAccent, fontWeight: FontWeight.bold);
-                  TextStyle underRepairTextStyle = TextStyle(
+                  TextStyle underRepairTextStyle = const TextStyle(
                       color: Colors.orange, fontWeight: FontWeight.bold);
-                  TextStyle fixedTextStyle = TextStyle(
+                  TextStyle fixedTextStyle = const TextStyle(
                       color: Colors.green, fontWeight: FontWeight.bold);
 
                   TextStyle textStyling;
@@ -106,11 +107,11 @@ class _ReportpageState extends State<Reportpage> {
                   }
 
                   return MyListMessage(
-                      leftTop: formattedDateTimee,
-                      leftBtm: 'Jakka No. $jakkaNo',
-                      rightSec: status,
-                      rightSecStyle: textStyling,
-                      );
+                    leftTop: formattedDate,
+                    leftBtm: 'Jakka No. $jakkaNo',
+                    rightSec: status,
+                    rightSecStyle: textStyling,
+                  );
                 },
               );
             },
