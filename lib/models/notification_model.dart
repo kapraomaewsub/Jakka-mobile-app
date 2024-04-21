@@ -13,20 +13,20 @@ class NotificationModel{
     notification.add(NotificationModel(
         topic: 'อย่าลืมคืนจักรยาน!!',
         jakkaNo: 'Jakka No. 102',
-        date: '13/03/2024 20:02',
+        date: '13/03/2024 20:00',
       )
     );
 
     notification.add(NotificationModel(
         topic: 'อย่าลืมคืนจักรยาน!!',
         jakkaNo: 'Jakka No. 102',
-        date: '13/03/2024 20:02',
+        date: '13/03/2024 20:00',
       )
     );
 
     notification.add(NotificationModel(
         topic: 'Jakka Center close',
-        date: '13/03/2024 20:02',
+        date: '13/03/2024 20:00',
       )
     );
   
