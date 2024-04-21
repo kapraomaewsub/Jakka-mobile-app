@@ -39,6 +39,7 @@ class _AccountpageState extends State<Accountpage> {
 
   AppBar accountpageAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: const Text(
         'User Account',
         style: TextStyle(

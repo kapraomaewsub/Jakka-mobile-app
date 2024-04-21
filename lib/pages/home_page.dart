@@ -76,6 +76,7 @@ class _HomepageState extends State<Homepage> {
     return AppBar(
       title: DisplayUserInfo(
           firstName: user!['Firstname'], surName: user!['Surname']),
+      automaticallyImplyLeading: false,
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications_active_outlined),
