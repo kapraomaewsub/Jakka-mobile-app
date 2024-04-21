@@ -44,6 +44,7 @@ class _HistorypageState extends State<Historypage> {
                 .collection("History")
                 .where("user",
                     isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    .orderBy('Date', descending: true)
                 .snapshots(),
             builder: (context, snapshot) {
               // an errors
@@ -85,12 +86,19 @@ class _HistorypageState extends State<Historypage> {
 
                   String returnedMsg = returned ? 'Returned' : 'Not Returned';
 
+                  TextStyle returnedTextStyle = TextStyle(color: Colors.green,fontWeight: FontWeight.bold);
+                  TextStyle notReturnedTextStyle = TextStyle(color: Colors.red,fontWeight: FontWeight.bold);
+                  TextStyle textStyling =
+                      returned ? returnedTextStyle : notReturnedTextStyle;
+
                   //print(formattedDateTime);
 
                   return MyListMessage(
-                      leftTop: formattedDateTime,
-                      leftBtm: 'Jakka No. $jakkaNo',
-                      rightSec: returnedMsg);
+                    leftTop: formattedDateTime,
+                    leftBtm: 'Jakka No. $jakkaNo',
+                    rightSec: returnedMsg, 
+                    rightSecStyle: textStyling,
+                  );
                 },
               );
             },

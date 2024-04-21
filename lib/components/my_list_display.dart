@@ -5,12 +5,15 @@ class MyListMessage extends StatefulWidget {
   final String leftTop;
   final String leftBtm;
   final String rightSec;
+  final TextStyle? rightSecStyle; // เพิ่ม rightSecStyle เป็น optional
 
-  const MyListMessage(
-      {super.key,
-      required this.leftTop,
-      required this.leftBtm,
-      required this.rightSec});
+  const MyListMessage({
+    Key? key,
+    required this.leftTop,
+    required this.leftBtm,
+    required this.rightSec,
+    this.rightSecStyle, // ให้ rightSecStyle เป็น optional
+  }) : super(key: key);
 
   @override
   State<MyListMessage> createState() => _MyListMessageState();
@@ -58,7 +61,7 @@ class _MyListMessageState extends State<MyListMessage> {
                 ),
                 Text(
                   widget.rightSec,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: widget.rightSecStyle,
                 ),
               ],
             ),
