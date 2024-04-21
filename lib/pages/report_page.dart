@@ -50,8 +50,7 @@ class _ReportpageState extends State<Reportpage> {
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection("Report")
-                .where("User",
-                    isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                .orderBy("Date", descending: true)
                 .snapshots(),
             builder: (context, snapshot) {
               // an errors
@@ -82,17 +81,36 @@ class _ReportpageState extends State<Reportpage> {
                   final history = histories[index];
 
                   // get data from each history
-
                   var timestt = history['Date'];
                   var neww = DateTime.parse(timestt.toDate().toString());
                   var formattedDateTimee = displayDateFormat(neww);
                   String jakkaNo = history['Jakka_No'];
                   String status = history['Status'];
 
+                  TextStyle acceptedTextStyle = TextStyle(
+                      color: Colors.blueAccent, fontWeight: FontWeight.bold);
+                  TextStyle underRepairTextStyle = TextStyle(
+                      color: Colors.orange, fontWeight: FontWeight.bold);
+                  TextStyle fixedTextStyle = TextStyle(
+                      color: Colors.green, fontWeight: FontWeight.bold);
+
+                  TextStyle textStyling;
+                  if (status == 'Accepted') {
+                    textStyling = acceptedTextStyle;
+                  } else if (status == 'Under Repair') {
+                    textStyling = underRepairTextStyle;
+                  } else if (status == 'Fixed') {
+                    textStyling = fixedTextStyle;
+                  } else {
+                    textStyling = TextStyle(color: Colors.black); // Default
+                  }
+
                   return MyListMessage(
                       leftTop: formattedDateTimee,
                       leftBtm: 'Jakka No. $jakkaNo',
-                      rightSec: status);
+                      rightSec: status,
+                      rightSecStyle: textStyling,
+                      );
                 },
               );
             },
